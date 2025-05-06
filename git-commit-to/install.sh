@@ -3,23 +3,23 @@
 ##
 ## Config
 ##
-SCRIPT="git-commit-to.sh"
+SCRIPT_URL="https://raw.githubusercontent.com/sartaj/git-aliases/main/aliases/commit-to/git-commit-to.sh"
 ALIAS="commit-to"
 DESCRIPTION="Create a commit and immediately push it to a specific branch"
-SCRIPT_URL="https://raw.githubusercontent.com/sartaj/git-alises/main/aliases/commit-to/git-commit-to.sh"
-
-# Exit immediately if a command exits with a non-zero status
-set -e
+INSTALL_DIR="$HOME/.git-aliases"
 
 ##
 ## Run
 ##
 
-# Create .git-alises directory if it doesn't exist
-INSTALL_DIR="$HOME/.git-alises"
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Create install directory if it doesn't exist
 mkdir -p "$INSTALL_DIR"
 
 # Download the script
+SCRIPT="${SCRIPT_URL##*/}"
 SCRIPT_PATH="$INSTALL_DIR/$SCRIPT"
 curl -s "$SCRIPT_URL" > "$SCRIPT_PATH"
 chmod +x "$SCRIPT_PATH"

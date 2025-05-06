@@ -3,23 +3,23 @@
 ##
 ## Config
 ##
-SCRIPT="git-squish.sh"
+SCRIPT_URL="https://raw.githubusercontent.com/sartaj/git-aliases/main/aliases/squish/git-squish.sh"
 ALIAS="squish"
-DESCRIPTION="Squash all commits on current branch back to where it diverged from base branch"
-SCRIPT_URL="https://raw.githubusercontent.com/sartaj/git-alises/main/aliases/squish/git-squish.sh"
-
-# Exit immediately if a command exits with a non-zero status
-set -e
+DESCRIPTION="Squash all commits since a specific commit"
+INSTALL_DIR="$HOME/.git-aliases"
 
 ##
 ## Run
 ##
 
-# Create .git-alises directory if it doesn't exist
-INSTALL_DIR="$HOME/.git-alises"
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Create install directory if it doesn't exist
 mkdir -p "$INSTALL_DIR"
 
 # Download the script
+SCRIPT="${SCRIPT_URL##*/}"
 SCRIPT_PATH="$INSTALL_DIR/$SCRIPT"
 curl -s "$SCRIPT_URL" > "$SCRIPT_PATH"
 chmod +x "$SCRIPT_PATH"

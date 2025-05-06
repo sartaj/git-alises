@@ -1,8 +1,15 @@
 #!/bin/bash
 
+## Master installer script that runs git aliases installers directly from GitHub
+
+##
+## Config
+##
 ALIASES=("git-commit-to" "git-squish")
 
-# Master installer script that runs git aliases installers directly from GitHub
+##
+## Run
+##
 
 # Exit immediately if a command exits with a non-zero status
 set -e
