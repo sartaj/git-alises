@@ -62,6 +62,10 @@ while IFS=',' read -r alias_name script_file description || [[ -n "$alias_name" 
     cat > "$BIN_DIR/git-$alias_name" << EOF
 #!/bin/bash
 # $description
+
+# Pass the default base branch environment variable to the script
+export GIT_DEFAULT_BASE_BRANCH="$DEFAULT_BASE_BRANCH"
+
 exec "$INSTALL_DIR/scripts/$script_file" "\$@"
 EOF
     chmod +x "$BIN_DIR/git-$alias_name"

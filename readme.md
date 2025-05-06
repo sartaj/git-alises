@@ -4,8 +4,8 @@ A collection of useful Git aliases and custom commands to enhance your Git workf
 
 ## Quick Install
 
-Install all aliases with a single command
 ```bash
+# Install all aliases with a single command
 curl -s https://raw.githubusercontent.com/sartaj/git-alises/refs/heads/main/install.sh | bash
 ```
 
