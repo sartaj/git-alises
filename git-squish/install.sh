@@ -12,6 +12,8 @@ INSTALL_DIR="$HOME/.git-aliases"
 ## Run
 ##
 
+echo "📥 Installing $ALIAS..."
+
 # Exit immediately if a command exits with a non-zero status
 set -e
 

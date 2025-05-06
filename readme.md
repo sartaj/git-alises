@@ -4,11 +4,10 @@ A collection of useful Git aliases and custom commands to enhance your Git workf
 
 Each command is self contained, allowing you to install individually, or all.
 
-## Install All
+## Install All With 1 Command
 
 ```bash
-# Install all aliases with a single command
-curl -s https://raw.githubusercontent.com/sartaj/git-alises/refs/heads/main/install-all.sh | bash
+for a in git-commit-to git-squish; do curl -s "https://raw.githubusercontent.com/sartaj/git-aliases/main/$a/install.sh" | bash; done
 ```
 
 ## Available Commands
@@ -22,7 +21,7 @@ curl -s https://raw.githubusercontent.com/sartaj/git-alises/refs/heads/main/inst
 
 ### Add new script
 
-Add a folder. Each folder should have an `install.sh` script that adds the alias. In `install-all.sh`, add the folder added.
+Add a folder. Each folder should have an `install.sh` script that adds the alias. In the above install all script, add the folder added.
 
 ## License
 
