@@ -12,6 +12,7 @@ INSTALL_DIR="$HOME/.git-aliases"
 ## Run
 ##
 
+echo ""
 echo "📥 Installing $ALIAS..."
 
 # Exit immediately if a command exits with a non-zero status
@@ -36,3 +37,4 @@ git config --global "alias.${ALIAS}" "\"!${SCRIPT_PATH}\""
 git config --global "alias.${ALIAS}.description" "${DESCRIPTION}"
 
 echo "✅ Installed git-$ALIAS successfully"
+echo ""
