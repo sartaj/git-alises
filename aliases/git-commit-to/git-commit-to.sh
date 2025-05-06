@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Function to push staged changes to a new branch without switching branches
-git_committo() {
+git_commit_staged_to() {
     # Default commit message
     local COMMIT_MESSAGE="update"
     local NEW_BRANCH_NAME=""
@@ -47,6 +47,12 @@ git_committo() {
         return 1
     fi
 
+    # Get the origin name - try to find "origin" or use the first remote if not found
+    ORIGIN_NAME=$(git remote | grep -m 1 origin || git remote | head -n 1)
+    # Get the full head reference
+    HEAD_REF=$(set -- `git ls-remote --symref $ORIGIN_NAME HEAD` && test $1 = ref: && echo $2)
+    # Derive the branch name by removing the "refs/heads/" prefix
+    GIT_DEFAULT_BASE_BRANCH=${HEAD_REF#refs/heads/}
     # Determine the base branch to use
     DEFAULT_BASE_BRANCH="${GIT_DEFAULT_BASE_BRANCH:-master}"
     
@@ -113,5 +119,5 @@ git_committo() {
 
 # If this script is executed directly (not sourced), run the function
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    git_committo "$@"
+    git_commit_staged_to "$@"
 fi
