@@ -14,11 +14,11 @@ for a in git-push-staged-to git-flatten git-sync-main; do curl -s "https://raw.g
 
 ## Available Commands
 
-| Command                                           | Description                                                                      | Individual Install Command                                                                                           |
-| ------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `git push-staged-to <branch-name> [-m <message>]` | Commit your changes to a new branch from current HEAD                            | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-push-staged-to/install.sh \| bash` |
-| `git flatten [-m <message>]`                      | Flatten all commits on current branch back to where it diverged from base branch | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-flatten/install.sh \| bash`        |
-| `git sync-main`                                   | Update local main branch with remote changes without switching branches          | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-sync-main/install.sh \| bash`      |
+| Command                                           | Description                                                             | Individual Install Command                                                                                           |
+| ------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `git sync-main`                                   | Update local main branch with remote changes without switching branches | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-sync-main/install.sh \| bash`      |
+| `git push-staged-to <branch-name> [-m <message>]` | Push staged changes to a new branch without switching branches          | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-push-staged-to/install.sh \| bash` |
+| `git flatten [-m <message>]`                      | Squash all commits since diverging from the base branch                 | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-flatten/install.sh \| bash`        |
 
 ## Contributing
 
