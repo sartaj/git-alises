@@ -78,22 +78,25 @@ git_flatten() {
     git reset --soft $COMMIT
     echo "📝 Changes ready to commit:"
     git status --short
+    echo ""
 
     if [[ -z "$COMMIT_MESSAGE" ]]; then
         # No commit message, just leave changes staged
-        echo "✨ Changes have been flattened to $BASE_BRANCH and staged"
+        echo "✨ Changes have been squashed to $BASE_BRANCH and staged"
+        echo ""
+        echo "⏭️ Follow Up Commands"
         echo "git commit -m 'update'"
+        echo "git push --force origin $CURRENT_BRANCH"
     else
         # Commit message is provided, create the commit
         echo "💬 Using commit message: $COMMIT_MESSAGE"
         git commit -m "$COMMIT_MESSAGE"
-        echo "✨ Commits have been flattened locally!"
+        echo "✨ Commits have been squashed locally from $BASE_BRANCH!"
+        echo ""
+        echo "⏭️ Follow Up Commands"
+        echo "git push --force origin $CURRENT_BRANCH"
     fi
 
-    # Echo push command
-    echo "✨ To update the remote branch, use:"
-    echo "git push --force origin $CURRENT_BRANCH"
-    
     return 0
 }
 
