@@ -20,8 +20,10 @@ git_squish() {
     ##
     
     # Defaults
+    local CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
     local BASE_BRANCH=$(get_default_base_branch)
-    local COMMIT_MESSAGE=""
+    local COMMIT_MESSAGE="update"
+    local COMMIT=$(git merge-base HEAD $BASE_BRANCH)
 
     # Check for help flag
     if [[ "$1" == "--help" || "$1" == "-h" ]]; then
@@ -68,22 +70,17 @@ git_squish() {
         return 1
     fi
 
-    ##
-    ## Validators
-    ##
-    
-    COMMIT=$(git merge-base HEAD $BASE_BRANCH)
-
     # If no commit message provided, get the latest commit message
     if [ -z "$COMMIT_MESSAGE" ]; then
         COMMIT_MESSAGE=$(git log -1 --pretty=%B)
     fi
 
+    ##
+    ## Main Logic
+    ##
+
     git reset --soft $COMMIT
     git commit -m "$COMMIT_MESSAGE"
-
-    # Get current branch name
-    CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
     echo "✨ Commits have been squished locally!"
     echo "⚠️  To update the remote branch, use:"
