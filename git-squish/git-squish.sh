@@ -73,7 +73,6 @@ git_squish() {
 
     echo "🔍 Base branch: $BASE_BRANCH"
     echo "📍 Squishing to commit: $(git rev-parse --short $COMMIT)"
-    echo "💬 Using commit message: $COMMIT_MESSAGE"
     echo ""
 
     git reset --soft $COMMIT
@@ -82,12 +81,18 @@ git_squish() {
 
     if [[ -z "$COMMIT_MESSAGE" ]]; then
         # No commit message, just leave changes staged
-        echo "✨ Changes have been reset and staged. Ready for you to commit with your own message."
+        echo "✨ Changes have been flattened to $BASE_BRANCH and staged"
+        echo "git commit -m 'update'"
     else
         # Commit message is provided, create the commit
+        echo "💬 Using commit message: $COMMIT_MESSAGE"
         git commit -m "$COMMIT_MESSAGE"
         echo "✨ Commits have been squished locally!"
     fi
+
+    # Echo push command
+    echo "✨ To update the remote branch, use:"
+    echo "git push --force origin $CURRENT_BRANCH"
     
     return 0
 }
