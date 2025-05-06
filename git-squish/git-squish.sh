@@ -67,11 +67,6 @@ git_squish() {
         return 1
     fi
 
-    # If no commit message provided, get the latest commit message
-    if [ -z "$COMMIT_MESSAGE" ]; then
-        COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-    fi
-
     ##
     ## Main Logic
     ##
@@ -85,14 +80,13 @@ git_squish() {
     echo "📝 Changes ready to commit:"
     git status --short
 
-    if [ -n "$COMMIT_MESSAGE" ]; then
-        # Commit message is not empty
+    if [[ -z "$COMMIT_MESSAGE" ]]; then
+        # No commit message, just leave changes staged
+        echo "✨ Changes have been reset and staged. Ready for you to commit with your own message."
+    else
+        # Commit message is provided, create the commit
         git commit -m "$COMMIT_MESSAGE"
         echo "✨ Commits have been squished locally!"
-    else
-        # No commit message, show the command to use
-        echo "✨ Changes have been reset and staged. To commit, run:"
-        echo "git commit -m \"update\""
     fi
     
     return 0

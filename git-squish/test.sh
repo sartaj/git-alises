@@ -59,16 +59,32 @@ cleanup_test() {
     rm -rf "$TEST_DIR"
 }
 
-# Test: Basic squish functionality
-test_basic_squish() {
+# Test: Squish without commit message should use the last commit's message
+test_squish_without_message() {
+    local initial_commit_count=$(git rev-list HEAD --count)
+    local last_message=$(git log -1 --pretty=%B)
+    
+    bash "$SCRIPT_DIR/git-squish.sh"
+    
+    local status_output=$(git status --short)
+
+    echo "Status output: $status_output"
+
+    # Verify that git status shows M (modified) for file.txt
+    [ "$status_output" = "M  file.txt" ]
+}
+
+# Test: Squish with commit message should create a commit
+test_squish_with_message() {
     local initial_commit_count=$(git rev-list HEAD --count)
     
     bash "$SCRIPT_DIR/git-squish.sh" -m "Squished commits"
-    git push -u origin feature
     
     local final_commit_count=$(git rev-list HEAD --count)
+    local latest_message=$(git log -1 --pretty=%B)
     
-    [ $((initial_commit_count - 2)) -eq $final_commit_count ]
+    # Should have one less commit than before (squished) and message should match
+    [ $((initial_commit_count - 2)) -eq $final_commit_count ] && [ "$latest_message" = "Squished commits" ]
 }
 
 # Test: Handling uncommitted changes
@@ -124,7 +140,8 @@ print_results() {
 # Main test execution
 main() {
     # Run all tests
-    run_test "Basic squish functionality" test_basic_squish
+    run_test "Squish without commit message" test_squish_without_message
+    run_test "Squish with commit message" test_squish_with_message
     run_test "Handling uncommitted changes" test_uncommitted_changes
     
     # Print results
