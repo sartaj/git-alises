@@ -25,11 +25,10 @@ SCRIPT="${SCRIPT_URL##*/}"
 SCRIPT_PATH="$INSTALL_DIR/$SCRIPT"
 curl -s "$SCRIPT_URL" > "$SCRIPT_PATH"
 chmod +x "$SCRIPT_PATH"
-
-# Unset the script name to avoid conflicts
-git config --global --unset-all alias.$ALIAS
+echo "Script downloaded to $SCRIPT_PATH"
 
 # Set up the Git alias
+git config --global --unset-all alias.$ALIAS # Unset the script name to avoid conflicts
 git config --global "alias.$ALIAS" "!$SCRIPT_PATH"
 git config --global "alias.$ALIAS.description" "$DESCRIPTION"
 
