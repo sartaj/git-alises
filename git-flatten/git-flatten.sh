@@ -71,12 +71,15 @@ git_flatten() {
     ## Main Logic
     ##
 
-    echo "🔍 Base branch: $BASE_BRANCH"
-    echo "📍 Flattening to commit: $(git rev-parse --short $COMMIT)"
+    echo ""
+    echo "⚙️ Config"
+    echo " Base branch: $BASE_BRANCH"
+    echo " Commit hash: $(git rev-parse --short $COMMIT)"
     echo ""
 
+    echo "🔨 Squashing commits since $BASE_BRANCH..."
     git reset --soft $COMMIT
-    echo "📝 Changes ready to commit:"
+    echo "📝 Changes to commit:"
     git status --short
     echo ""
 
@@ -87,6 +90,7 @@ git_flatten() {
         echo "⏭️ Follow Up Commands"
         echo "git commit -m 'update'"
         echo "git push --force origin $CURRENT_BRANCH"
+        echo ""
     else
         # Commit message is provided, create the commit
         echo "💬 Using commit message: $COMMIT_MESSAGE"
@@ -95,6 +99,7 @@ git_flatten() {
         echo ""
         echo "⏭️ Follow Up Commands"
         echo "git push --force origin $CURRENT_BRANCH"
+        echo ""
     fi
 
     return 0
