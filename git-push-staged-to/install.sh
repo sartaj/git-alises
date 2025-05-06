@@ -29,8 +29,8 @@ chmod +x "$SCRIPT_PATH"
 
 # Set up the Git alias
 echo "🔧 Setting up git alias..."
-git config --global --unset-all alias.$ALIAS
-git config --global "alias.$ALIAS" "!$SCRIPT_PATH"
-git config --global "alias.$ALIAS.description" "$DESCRIPTION"
+git config --global --unset-all "alias.$ALIAS"
+git config --global --add "alias.$ALIAS" "!$SCRIPT_PATH"
+git config --global --add "alias.$ALIAS.description" "$DESCRIPTION"
 
 echo "✅ Installed git-$ALIAS successfully"
