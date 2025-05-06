@@ -1,4 +1,4 @@
-[![Run Tests](https://github.com/sartaj/git-aliases/actions/workflows/test.yml/badge.svg)](https://github.com/sartaj/git-aliases/actions/workflows/test.yml)
+[![Tests](https://github.com/sartaj/git-aliases/actions/workflows/test.yml/badge.svg)](https://github.com/sartaj/git-aliases/actions/workflows/test.yml)
 
 # Git Aliases
 
