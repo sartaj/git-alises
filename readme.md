@@ -2,7 +2,7 @@
 
 A collection of useful Git aliases and custom commands to enhance your Git workflow.
 
-## Quick Install
+## Install All
 
 ```bash
 # Install all aliases with a single command
@@ -11,9 +11,10 @@ curl -s https://raw.githubusercontent.com/sartaj/git-alises/refs/heads/main/inst
 
 ## Available Commands
 
-| Command                                     | Description                                                    |
-| ------------------------------------------- | -------------------------------------------------------------- |
-| `git committo <branch-name> [-m <message>]` | Push staged changes to a new branch without switching branches |
+| Command                                     | Description                                                                     |
+| ------------------------------------------- | ------------------------------------------------------------------------------- |
+| `git committo <branch-name> [-m <message>]` | Push staged changes to a new branch without switching branches                  |
+| `git squish [-m <message>]`                 | Squash all commits on current branch back to where it diverged from base branch |
 
 ## Features
 
