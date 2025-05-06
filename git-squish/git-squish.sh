@@ -1,5 +1,24 @@
 #!/bin/bash
 
+# git squish - Squash all commits since diverging from the base branch
+#
+# USAGE:
+#   git squish [-m <commit-message>]
+#
+# OPTIONS:
+#   -m <message>    Specify a commit message for the squashed commit
+#                   If not provided, uses the message from the last commit
+#
+# EXAMPLES:
+#   git squish                          # Squash commits using last commit's message
+#   git squish -m "Feature complete"    # Squash commits with a new message
+#
+# DESCRIPTION:
+#   Squashes all commits on your current branch since it diverged from the
+#   default base branch (main/master) into a single commit. This is useful
+#   for cleaning up your commit history before merging a feature branch.
+#   The command will preserve all your changes but combine them into one commit.
+
 # Function to detect the default base branch name
 get_default_base_branch() {
     # Get the origin name - try to find "origin" or use the first remote if not found
@@ -22,30 +41,8 @@ git_squish() {
     # Defaults
     local CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
     local BASE_BRANCH=$(get_default_base_branch)
-    local COMMIT_MESSAGE="update"
     local COMMIT=$(git merge-base HEAD $BASE_BRANCH)
-
-    # Check for help flag
-    if [[ "$1" == "--help" || "$1" == "-h" ]]; then
-        echo "git squish - Squash all commits since diverging from the base branch"
-        echo ""
-        echo "USAGE:"
-        echo "  git squish [-m <commit-message>]"
-        echo ""
-        echo "OPTIONS:"
-        echo "  -m <message>    Specify a commit message (default: uses last commit's message)"
-        echo "  -h, --help      Show this help message"
-        echo ""
-        echo "EXAMPLES:"
-        echo "  git squish                           # Squash using last commit's message"
-        echo "  git squish -m 'Complete feature X'   # Squash with custom message"
-        echo ""
-        echo "DESCRIPTION:"
-        echo "  Squashes all commits on your current branch back to where it"
-        echo "  diverged from the default base branch (main/master). This is"
-        echo "  useful for cleaning up your feature branch before merging."
-        return 0
-    fi
+    local COMMIT_MESSAGE=""
 
     # Parse arguments for -m flag
     while getopts "m:" opt; do
@@ -85,13 +82,18 @@ git_squish() {
     echo ""
 
     git reset --soft $COMMIT
-    echo "📝 Commiting changes:"
+    echo "📝 Changes ready to commit:"
     git status --short
-    git commit -m "$COMMIT_MESSAGE"
 
-    echo "✨ Commits have been squished locally!"
-    echo "⚠️  To update the remote branch, use:"
-    echo "git push --force origin $CURRENT_BRANCH"
+    if [ -n "$COMMIT_MESSAGE" ]; then
+        # Commit message is not empty
+        git commit -m "$COMMIT_MESSAGE"
+        echo "✨ Commits have been squished locally!"
+    else
+        # No commit message, show the command to use
+        echo "✨ Changes have been reset and staged. To commit, run:"
+        echo "git commit -m \"update\""
+    fi
     
     return 0
 }

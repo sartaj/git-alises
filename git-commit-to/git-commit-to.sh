@@ -1,5 +1,22 @@
 #!/bin/bash
 
+# git commit-to - Push staged changes to a new branch without switching branches
+#
+# USAGE:
+#   git commit-to <branch-name> [-m <commit-message>]
+#
+# OPTIONS:
+#   -m, --message    Specify a commit message (default: 'update')
+#
+# EXAMPLES:
+#   git commit-to feature-123                     # Create branch 'feature-123' with default commit message
+#   git commit-to bugfix -m 'Fix memory leak'     # Create branch 'bugfix' with custom commit message
+#
+# DESCRIPTION:
+#   Creates a new branch from the default base branch (main/master), applies your
+#   staged changes to it, and pushes it to the remote repository. All of this is
+#   done without switching your current working branch.
+
 # Function to detect the default base branch name
 get_default_base_branch() {
     # Get the origin name - try to find "origin" or use the first remote if not found
@@ -23,28 +40,6 @@ git_commit_staged_to() {
     local NEW_BRANCH_NAME=""
     local BASE_BRANCH=$(get_default_base_branch)
     local CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-
-    # Help text
-    if [[ "$1" == "--help" || "$1" == "-h" ]]; then
-        echo "git commit-to - Push staged changes to a new branch without switching branches"
-        echo ""
-        echo "USAGE:"
-        echo "  git commit-to <branch-name> [-m <commit-message>]"
-        echo ""
-        echo "OPTIONS:"
-        echo "  -m, --message    Specify a commit message (default: 'update')"
-        echo "  -h, --help       Show this help message"
-        echo ""
-        echo "EXAMPLES:"
-        echo "  git commit-to feature-123                     # Create branch 'feature-123' with default commit message"
-        echo "  git commit-to bugfix -m 'Fix memory leak'     # Create branch 'bugfix' with custom commit message"
-        echo ""
-        echo "DESCRIPTION:"
-        echo "  Creates a new branch from the default base branch (main/master), applies your"
-        echo "  staged changes to it, and pushes it to the remote repository. All of this is"
-        echo "  done without switching your current working branch."
-        return 0
-    fi
 
     # Parse arguments
     while [[ $# -gt 0 ]]; do
