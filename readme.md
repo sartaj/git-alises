@@ -1,3 +1,5 @@
+[![Run Tests](https://github.com/sartaj/git-aliases/actions/workflows/test.yml/badge.svg)](https://github.com/sartaj/git-aliases/actions/workflows/test.yml)
+
 # Git Aliases
 
 A collection of useful Git aliases and custom commands to enhance your Git workflow.

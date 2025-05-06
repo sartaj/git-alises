@@ -1,0 +1,28 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Find and run test files
+        run: |
+          # Find all test.sh files and run them
+          find . -name "test.sh" -type f -print0 | while IFS= read -r -d '' test_file; do
+            echo "Running test: $test_file"
+            bash "$test_file"
+            if [ $? -ne 0 ]; then
+              echo "Test $test_file failed"
+              exit 1
+            fi
+          done
