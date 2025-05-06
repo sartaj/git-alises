@@ -3,7 +3,7 @@
 ##
 ## Config
 ##
-SCRIPT_URL="https://raw.githubusercontent.com/sartaj/git-aliases/main/aliases/commit-to/git-commit-to.sh"
+SCRIPT_URL="https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-commit-to/git-commit-to.sh"
 ALIAS="commit-to"
 DESCRIPTION="Create a commit and immediately push it to a specific branch"
 INSTALL_DIR="$HOME/.git-aliases"

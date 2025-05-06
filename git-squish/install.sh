@@ -3,7 +3,7 @@
 ##
 ## Config
 ##
-SCRIPT_URL="https://raw.githubusercontent.com/sartaj/git-aliases/main/aliases/squish/git-squish.sh"
+SCRIPT_URL="https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-squish/git-squish.sh"
 ALIAS="squish"
 DESCRIPTION="Squash all commits since a specific commit"
 INSTALL_DIR="$HOME/.git-aliases"
