@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# git squish - Squash all commits since diverging from the base branch
+# git flatten - Squash all commits since diverging from the base branch
 #
 # USAGE:
-#   git squish [-m <commit-message>]
+#   git flatten [-m <commit-message>]
 #
 # OPTIONS:
 #   -m <message>    Specify a commit message for the squashed commit
 #                   If not provided, uses the message from the last commit
 #
 # EXAMPLES:
-#   git squish                          # Squash commits using last commit's message
-#   git squish -m "Feature complete"    # Squash commits with a new message
+#   git flatten                          # Squash commits using last commit's message
+#   git flatten -m "Feature complete"    # Squash commits with a new message
 #
 # DESCRIPTION:
 #   Squashes all commits on your current branch since it diverged from the
@@ -32,7 +32,7 @@ get_default_base_branch() {
 }
 
 # Function to squash commits since diverging from base branch
-git_squish() {
+git_flatten() {
 
     ##
     ## Parse Args
@@ -63,7 +63,7 @@ git_squish() {
 
     # Check for uncommitted changes
     if ! git diff --quiet || ! git diff --cached --quiet; then
-        echo "Cannot squish with uncommitted changes" >&2
+        echo "Cannot flatten with uncommitted changes" >&2
         return 1
     fi
 
@@ -72,7 +72,7 @@ git_squish() {
     ##
 
     echo "🔍 Base branch: $BASE_BRANCH"
-    echo "📍 Squishing to commit: $(git rev-parse --short $COMMIT)"
+    echo "📍 Flattening to commit: $(git rev-parse --short $COMMIT)"
     echo ""
 
     git reset --soft $COMMIT
@@ -87,7 +87,7 @@ git_squish() {
         # Commit message is provided, create the commit
         echo "💬 Using commit message: $COMMIT_MESSAGE"
         git commit -m "$COMMIT_MESSAGE"
-        echo "✨ Commits have been squished locally!"
+        echo "✨ Commits have been flattened locally!"
     fi
 
     # Echo push command
@@ -99,5 +99,5 @@ git_squish() {
 
 # If this script is executed directly (not sourced), run the function
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    git_squish "$@"
+    git_flatten "$@"
 fi

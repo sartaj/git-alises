@@ -39,7 +39,7 @@ setup_test() {
     # Create feature branch
     git checkout -b feature
     
-    # Create multiple commits to squish
+    # Create multiple commits to flatten
     echo "change 1" >> file.txt
     git add file.txt
     git commit -m "First change"
@@ -59,12 +59,12 @@ cleanup_test() {
     rm -rf "$TEST_DIR"
 }
 
-# Test: Squish without commit message should use the last commit's message
-test_squish_without_message() {
+# Test: Flatten without commit message should use the last commit's message
+test_flatten_without_message() {
     local initial_commit_count=$(git rev-list HEAD --count)
     local last_message=$(git log -1 --pretty=%B)
     
-    bash "$SCRIPT_DIR/git-squish.sh"
+    bash "$SCRIPT_DIR/git-flatten.sh"
     
     local status_output=$(git status --short)
 
@@ -74,24 +74,24 @@ test_squish_without_message() {
     [ "$status_output" = "M  file.txt" ]
 }
 
-# Test: Squish with commit message should create a commit
-test_squish_with_message() {
+# Test: Flatten with commit message should create a commit
+test_flatten_with_message() {
     local initial_commit_count=$(git rev-list HEAD --count)
     
-    bash "$SCRIPT_DIR/git-squish.sh" -m "Squished commits"
+    bash "$SCRIPT_DIR/git-flatten.sh" -m "Flattened commits"
     
     local final_commit_count=$(git rev-list HEAD --count)
     local latest_message=$(git log -1 --pretty=%B)
     
-    # Should have one less commit than before (squished) and message should match
-    [ $((initial_commit_count - 2)) -eq $final_commit_count ] && [ "$latest_message" = "Squished commits" ]
+    # Should have one less commit than before (flattened) and message should match
+    [ $((initial_commit_count - 2)) -eq $final_commit_count ] && [ "$latest_message" = "Flattened commits" ]
 }
 
 # Test: Handling uncommitted changes
 test_uncommitted_changes() {
     echo "uncommitted change" >> file.txt
     
-    if bash "$SCRIPT_DIR/git-squish.sh" -m "Should fail" 2>&1 | grep -q "Cannot squish with uncommitted changes"; then
+    if bash "$SCRIPT_DIR/git-flatten.sh" -m "Should fail" 2>&1 | grep -q "Cannot flatten with uncommitted changes"; then
         return 0
     else
         return 1
@@ -140,8 +140,8 @@ print_results() {
 # Main test execution
 main() {
     # Run all tests
-    run_test "Squish without commit message" test_squish_without_message
-    run_test "Squish with commit message" test_squish_with_message
+    run_test "Flatten without commit message" test_flatten_without_message
+    run_test "Flatten with commit message" test_flatten_with_message
     run_test "Handling uncommitted changes" test_uncommitted_changes
     
     # Print results

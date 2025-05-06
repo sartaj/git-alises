@@ -2,22 +2,23 @@
 
 # Git Aliases
 
-A collection of useful Git aliases and custom commands to enhance your Git workflow.
+A collection of useful git aliases to help improve your git workflow.
 
-Each command is self contained, allowing you to install individually, or all.
+## Quick Install
 
-## Install All With 1 Command
+Just want to install a specific command? Copy and paste the relevant command below:
 
 ```bash
-for a in git-commit-to git-squish; do curl -s "https://raw.githubusercontent.com/sartaj/git-aliases/main/$a/install.sh" | bash; done
+# Install individual commands
+for a in git-commit-to git-flatten; do curl -s "https://raw.githubusercontent.com/sartaj/git-aliases/main/$a/install.sh" | bash; done
 ```
 
 ## Available Commands
 
-| Command                                      | Description                                                                     | Install                                                                                              |
-| -------------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `git commit-to <branch-name> [-m <message>]` | Push staged changes to a new branch without switching branches                  | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/main/git-commit-to/install.sh \| bash` |
-| `git squish [-m <message>]`                  | Squash all commits on current branch back to where it diverged from base branch | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/main/git-squish/install.sh \| bash`    |
+| Command                       | Description                                                                      | Individual Install Command                                                                           |
+| ----------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `git commit-to <branch-name>` | Commit your changes to a new branch from current HEAD                            | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/main/git-commit-to/install.sh \| bash` |
+| `git flatten [-m <message>]`  | Flatten all commits on current branch back to where it diverged from base branch | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/main/git-flatten/install.sh \| bash`   |
 
 ## Contributing
 
