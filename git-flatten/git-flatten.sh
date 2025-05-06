@@ -77,9 +77,10 @@ git_flatten() {
     echo " Commit hash: $(git rev-parse --short $COMMIT)"
     echo ""
 
-    echo "🔨 Squashing commits since $BASE_BRANCH..."
+    echo "🔨 Squashing commits from this branch off of $BASE_BRANCH..."
+    echo ""
     git reset --soft $COMMIT
-    echo "📝 Changes to commit:"
+    echo "📝 New git status:"
     git status --short
     echo ""
 
