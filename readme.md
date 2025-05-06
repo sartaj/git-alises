@@ -2,12 +2,12 @@
 
 # Git Aliases
 
-A collection of useful git aliases to help improve your git workflow.
+A collection of useful git aliases to help improve your git workflow, especially around creating branches that are larger changes and being able to split it into smaller changes.
 
 ## Quick Install Everything
 
 ```bash
-for a in git-push-staged-to git-flatten; do curl -s "https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/$a/install.sh" | bash; done
+for a in git-push-staged-to git-flatten git-sync-main; do curl -s "https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/$a/install.sh" | bash; done
 ```
 
 ## Available Commands
@@ -16,6 +16,7 @@ for a in git-push-staged-to git-flatten; do curl -s "https://raw.githubuserconte
 | ------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | `git push-staged-to <branch-name> [-m <message>]` | Commit your changes to a new branch from current HEAD                            | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-push-staged-to/install.sh \| bash` |
 | `git flatten [-m <message>]`                      | Flatten all commits on current branch back to where it diverged from base branch | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-flatten/install.sh \| bash`        |
+| `git sync-main`                                   | Update local main branch with remote changes without switching branches          | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-sync-main/install.sh \| bash`      |
 
 ## Contributing
 
