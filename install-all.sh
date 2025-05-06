@@ -1,42 +1,22 @@
 #!/bin/bash
 
-# Master installer script that just loops through the aliases directory and runs the
-# install.sh script in each alias directory and runs each install.sh scripts
+ALIASES=("commit-to" "squish")
 
-# Exit immediately if a command exits with a non-zero status (i.e., if any command fails)
+# Master installer script that runs git aliases installers directly from GitHub
+
+# Exit immediately if a command exits with a non-zero status
 set -e
 
 # Configuration
-export INSTALL_DIR="$HOME/.sartaj-git-aliases"
+GITHUB_RAW_URL="https://raw.githubusercontent.com/sartaj/git-aliases/main"
 
 echo "🌟 Installing Git aliases..."
 
-# Create or update installation directory
-if [ ! -d "$INSTALL_DIR" ]; then
-    echo "📂 Creating installation directory..."
-    mkdir -p "$INSTALL_DIR"
-fi
-
-# Check if git repository exists and update it, or clone it
-if [ -d "$INSTALL_DIR/.git" ]; then
-    echo "🔄 Updating existing repository..."
-    cd "$INSTALL_DIR"
-    git fetch origin
-    git reset --hard origin/main
-else
-    echo "📥 Cloning repository..."
-    rm -rf "$INSTALL_DIR"/*
-    git clone https://github.com/sartaj/git-aliases.git "$INSTALL_DIR"
-fi
-
-# Process each alias in the aliases directory
-for alias_dir in "$INSTALL_DIR/aliases/"*/; do
-    if [ -f "${alias_dir}install.sh" ]; then
-        # Run the install script
-        chmod +x "${alias_dir}install.sh"
-        "${alias_dir}install.sh"
-        echo "  ✅ Installation of $alias_name complete!"
-    fi
+# Run install scripts for each alias directly from GitHub
+for alias in "${ALIASES[@]}"; do
+    echo "📥 Installing $alias..."
+    curl -s "$GITHUB_RAW_URL/$alias/install.sh" | bash
+    echo "  ✅ Installation of $alias complete!"
 done
 
 echo ""
