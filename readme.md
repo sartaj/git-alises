@@ -96,7 +96,9 @@ To update all aliases to the latest version:
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+### AI Chats / Prompts
+
+- https://claude.ai/share/2352331d-e708-4f29-9f9e-769a9b3a1563
 
 ## License
 
