@@ -6,7 +6,7 @@ A collection of useful Git aliases and custom commands to enhance your Git workf
 
 ```bash
 # Install all aliases with a single command
-curl -s https://raw.githubusercontent.com/username/git-aliases/main/install.sh | bash
+curl -s https://raw.githubusercontent.com/sartaj/git-aliases/main/install.sh | bash
 ```
 
 ## Available Commands
