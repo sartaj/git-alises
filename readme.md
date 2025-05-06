@@ -4,6 +4,8 @@
 
 A collection of useful git aliases to help improve your git workflow, especially around creating branches that are larger changes and being able to split it into smaller changes.
 
+Works well with Magit ([Emacs](https://magit.vc/)) ([VSCode](https://github.com/kahole/edamagit)) for partial file staging.
+
 ## Quick Install Everything
 
 ```bash
