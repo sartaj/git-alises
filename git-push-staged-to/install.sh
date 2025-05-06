@@ -32,8 +32,7 @@ chmod +x "$SCRIPT_PATH"
 echo "🔧 Setting up git alias..."
 # Remove any existing alias first
 git config --global --unset-all "alias.${ALIAS}" || true
-# Add the new alias with proper quoting
-git config --global "alias.${ALIAS}" "\"!${SCRIPT_PATH}\""
+git config --global "alias.${ALIAS}" "!${SCRIPT_PATH}"
 git config --global "alias.${ALIAS}.description" "${DESCRIPTION}"
 
 echo "✅ Installed git-$ALIAS successfully"
