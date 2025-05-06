@@ -7,15 +7,15 @@ A collection of useful git aliases to help improve your git workflow.
 ## Quick Install Everything
 
 ```bash
-for a in git-push-staged-to git-flatten; do curl -s "https://raw.githubusercontent.com/sartaj/git-aliases/main/$a/install.sh" | bash; done
+for a in git-push-staged-to git-flatten; do curl -s "https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/$a/install.sh" | bash; done
 ```
 
 ## Available Commands
 
-| Command                                           | Description                                                                      | Individual Install Command                                                                                |
-| ------------------------------------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `git push-staged-to <branch-name> [-m <message>]` | Commit your changes to a new branch from current HEAD                            | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/main/git-push-staged-to/install.sh \| bash` |
-| `git flatten [-m <message>]`                      | Flatten all commits on current branch back to where it diverged from base branch | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/main/git-flatten/install.sh \| bash`        |
+| Command                                           | Description                                                                      | Individual Install Command                                                                                           |
+| ------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `git push-staged-to <branch-name> [-m <message>]` | Commit your changes to a new branch from current HEAD                            | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-push-staged-to/install.sh \| bash` |
+| `git flatten [-m <message>]`                      | Flatten all commits on current branch back to where it diverged from base branch | `curl -s https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-flatten/install.sh \| bash`        |
 
 ## Contributing
 
