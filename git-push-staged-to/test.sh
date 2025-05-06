@@ -44,7 +44,7 @@ cleanup_test() {
     rm -rf "$TEST_DIR"
 }
 
-# Test: Basic commit-to functionality
+# Test: Basic push-staged-to functionality
 test_basic_commit_to() {
     # Make some changes to test committing to a new branch
     echo "new feature" > feature.txt
@@ -54,7 +54,7 @@ test_basic_commit_to() {
     local initial_branch=$(git rev-parse --abbrev-ref HEAD)
     
     # Try to commit to a new branch
-    bash "$SCRIPT_DIR/git-commit-to.sh" feature-branch -m "Test commit"
+    bash "$SCRIPT_DIR/git-push-staged-to.sh" feature-branch -m "Test commit"
     
     # Verify we're still on the original branch
     local current_branch=$(git rev-parse --abbrev-ref HEAD)
@@ -79,7 +79,7 @@ test_basic_commit_to() {
 # Test: Handling no staged changes
 test_no_staged_changes() {
     # Try to commit without any staged changes
-    if bash "$SCRIPT_DIR/git-commit-to.sh" test-branch 2>&1 | grep -q "No staged changes found"; then
+    if bash "$SCRIPT_DIR/git-push-staged-to.sh" test-branch 2>&1 | grep -q "No staged changes found"; then
         return 0
     else
         return 1
@@ -92,7 +92,7 @@ test_custom_commit_message() {
     git add message.txt
     
     local test_message="Custom commit message test"
-    bash "$SCRIPT_DIR/git-commit-to.sh" message-branch -m "$test_message"
+    bash "$SCRIPT_DIR/git-push-staged-to.sh" message-branch -m "$test_message"
     
     # Fetch and check the commit message
     git fetch origin message-branch
@@ -144,7 +144,7 @@ print_results() {
 # Main test execution
 main() {
     # Run all tests
-    run_test "Basic commit-to functionality" test_basic_commit_to
+    run_test "Basic push-staged-to functionality" test_basic_commit_to
     run_test "Handling no staged changes" test_no_staged_changes
     run_test "Custom commit message" test_custom_commit_message
     

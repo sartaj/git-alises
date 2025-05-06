@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# git commit-to - Push staged changes to a new branch without switching branches
+# git push-staged-to - Push staged changes to a new branch without switching branches
 #
 # USAGE:
-#   git commit-to <branch-name> [-m <commit-message>]
+#   git push-staged-to <branch-name> [-m <commit-message>]
 #
 # OPTIONS:
 #   -m, --message    Specify a commit message (default: 'update')
 #
 # EXAMPLES:
-#   git commit-to feature-123                     # Create branch 'feature-123' with default commit message
-#   git commit-to bugfix -m 'Fix memory leak'     # Create branch 'bugfix' with custom commit message
+#   git push-staged-to feature-123                     # Create branch 'feature-123' with default commit message
+#   git push-staged-to bugfix -m 'Fix memory leak'     # Create branch 'bugfix' with custom commit message
 #
 # DESCRIPTION:
 #   Creates a new branch from the default base branch (main/master), applies your
@@ -30,7 +30,7 @@ get_default_base_branch() {
 }
 
 # Function to push staged changes to a new branch without switching branches
-git_commit_staged_to() {
+git_push_staged_to() {
     ##
     ## Parse Args
     ##
@@ -54,7 +54,7 @@ git_commit_staged_to() {
                     shift
                 else
                     echo "Error: Unknown argument '$1'"
-                    echo "Usage: git commit-to <branch-name> [-m <commit-message>]"
+                    echo "Usage: git push-staged-to <branch-name> [-m <commit-message>]"
                     return 1
                 fi
                 ;;
@@ -68,7 +68,7 @@ git_commit_staged_to() {
     # Check if branch name is provided
     if [[ -z "$NEW_BRANCH_NAME" ]]; then
         echo "Error: Missing branch name"
-        echo "Usage: git commit-to <branch-name> [-m <commit-message>]"
+        echo "Usage: git push-staged-to <branch-name> [-m <commit-message>]"
         return 1
     fi
 
@@ -151,5 +151,5 @@ git_commit_staged_to() {
 
 # If this script is executed directly (not sourced), run the function
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    git_commit_staged_to "$@"
+    git_push_staged_to "$@"
 fi

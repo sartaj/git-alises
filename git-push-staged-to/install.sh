@@ -3,9 +3,9 @@
 ##
 ## Config
 ##
-SCRIPT_URL="https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-commit-to/git-commit-to.sh"
-ALIAS="commit-to"
-DESCRIPTION="Create a commit and immediately push it to a specific branch"
+SCRIPT_URL="https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-push-staged-to/git-push-staged-to.sh"
+ALIAS="push-staged-to"
+DESCRIPTION="Push staged changes to a specific branch"
 INSTALL_DIR="$HOME/.git-aliases"
 
 ##
