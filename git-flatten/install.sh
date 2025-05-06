@@ -20,6 +20,8 @@ set -e
 # Create install directory if it doesn't exist
 mkdir -p "$INSTALL_DIR"
 
+echo "📥 Added $INSTALL_DIR"
+
 # Download the script
 SCRIPT="${SCRIPT_URL##*/}"
 SCRIPT_PATH="$INSTALL_DIR/$SCRIPT"
