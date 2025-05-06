@@ -21,15 +21,15 @@ set -e
 mkdir -p "$INSTALL_DIR"
 
 # Download the script
-SCRIPT="${SCRIPT_URL##*/}"
+SCRIPT="$ALIAS.sh"
 SCRIPT_PATH="$INSTALL_DIR/$SCRIPT"
+echo "🔧 Downloading script to $SCRIPT_PATH"
 curl -s "$SCRIPT_URL" > "$SCRIPT_PATH"
 chmod +x "$SCRIPT_PATH"
 
-# Unset the script name to avoid conflicts
-git config --global --unset-all alias.$ALIAS
-
 # Set up the Git alias
+echo "🔧 Setting up git alias..."
+git config --global --unset-all alias.$ALIAS
 git config --global "alias.$ALIAS" "!$SCRIPT_PATH"
 git config --global "alias.$ALIAS.description" "$DESCRIPTION"
 
