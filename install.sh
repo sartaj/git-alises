@@ -1,25 +1,48 @@
 #!/bin/bash
 
 # Master installer script for custom Git aliases
-# Usage: curl -s https://raw.githubusercontent.com/username/git-aliases/main/install.sh | bash
+# Usage: curl -s https://raw.githubusercontent.com/sartaj/git-alises/refs/heads/main/install.sh | bash
 
 set -e
 
 # Configuration
-REPO_URL="https://raw.githubusercontent.com/sartaj/git-alises/refs/heads/main"
-INSTALL_DIR="$HOME/.git-aliases"
+REPO_URL="https://github.com/sartaj/git-alises.git"
+INSTALL_DIR="$HOME/.sartaj-git-alises"
 BIN_DIR="$HOME/.local/bin"
 CONFIG_FILE="$INSTALL_DIR/aliases.conf"
 
-# Create required directories
-mkdir -p "$INSTALL_DIR/scripts"
-mkdir -p "$BIN_DIR"
-
 echo "🌟 Installing custom Git aliases..."
 
-# Download the configuration file
-echo "📥 Downloading configuration file..."
-curl -s "$REPO_URL/aliases.conf" -o "$CONFIG_FILE"
+# Check if git is installed
+if ! command -v git &> /dev/null; then
+    echo "❌ Git is not installed! Please install git and try again."
+    exit 1
+fi
+
+# Create bin directory if it doesn't exist
+mkdir -p "$BIN_DIR"
+
+# Check if the installation directory already exists
+if [ -d "$INSTALL_DIR" ]; then
+    echo "📂 Installation directory already exists."
+    echo "🔄 Updating from repository..."
+    cd "$INSTALL_DIR"
+    git pull origin main
+    echo "✅ Update completed!"
+else
+    echo "📂 Creating installation directory..."
+    # Clone the repository
+    echo "📥 Cloning repository..."
+    git clone "$REPO_URL" "$INSTALL_DIR"
+    if [ $? -ne 0 ]; then
+        echo "❌ Failed to clone repository! Aborting."
+        exit 1
+    fi
+    echo "✅ Repository cloned successfully!"
+fi
+
+# Navigate to the installation directory
+cd "$INSTALL_DIR"
 
 # Read aliases from the configuration
 echo "📖 Reading alias configuration..."
@@ -43,23 +66,27 @@ export GIT_DEFAULT_BASE_BRANCH="$DEFAULT_BASE_BRANCH"
 
 # Process each alias in the configuration
 while IFS=',' read -r alias_name script_file description || [[ -n "$alias_name" ]]; do
-    # Skip comments and empty lines
+    # Skip comments, empty lines, and configuration settings
     [[ "$alias_name" =~ ^#.* ]] && continue
     [[ -z "$alias_name" ]] && continue
+    [[ "$alias_name" =~ ^@.* ]] && continue
     
     # Remove quotes from description
     description=$(echo "$description" | sed 's/^"//;s/"$//')
     
     echo "🔧 Installing alias: $alias_name ($description)"
     
-    # Download the script file
-    echo "  📥 Downloading $script_file..."
-    curl -s "$REPO_URL/scripts/$script_file" -o "$INSTALL_DIR/scripts/$script_file"
+    # Ensure the script file exists and is executable
+    if [ ! -f "$INSTALL_DIR/scripts/$script_file" ]; then
+        echo "  ❌ Script file not found: $script_file"
+        continue
+    fi
+    
     chmod +x "$INSTALL_DIR/scripts/$script_file"
     
     # Create the wrapper script
     echo "  🔗 Creating wrapper script..."
-    cat > "$BIN_DIR/git-$alias_name" << EOF
+    cat > "$BIN_DIR/git-$alias_name" << WRAPPER
 #!/bin/bash
 # $description
 
@@ -67,7 +94,7 @@ while IFS=',' read -r alias_name script_file description || [[ -n "$alias_name" 
 export GIT_DEFAULT_BASE_BRANCH="$DEFAULT_BASE_BRANCH"
 
 exec "$INSTALL_DIR/scripts/$script_file" "\$@"
-EOF
+WRAPPER
     chmod +x "$BIN_DIR/git-$alias_name"
     
     # Set up the Git alias
@@ -81,7 +108,9 @@ done < "$CONFIG_FILE"
 cat > "$INSTALL_DIR/update.sh" << EOF
 #!/bin/bash
 # Script to update all Git aliases
-curl -s $REPO_URL/install.sh | bash
+cd "$INSTALL_DIR"
+git pull origin main
+$INSTALL_DIR/install.sh
 echo "✅ All Git aliases updated!"
 EOF
 chmod +x "$INSTALL_DIR/update.sh"
@@ -95,9 +124,10 @@ echo "  export PATH=\"\$PATH:$BIN_DIR\""
 echo ""
 echo "Available commands:"
 while IFS=',' read -r alias_name script_file description || [[ -n "$alias_name" ]]; do
-    # Skip comments and empty lines
+    # Skip comments, empty lines, and configuration settings
     [[ "$alias_name" =~ ^#.* ]] && continue
     [[ -z "$alias_name" ]] && continue
+    [[ "$alias_name" =~ ^@.* ]] && continue
     
     # Remove quotes from description
     description=$(echo "$description" | sed 's/^"//;s/"$//')

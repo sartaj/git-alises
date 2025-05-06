@@ -11,8 +11,8 @@ curl -s https://raw.githubusercontent.com/sartaj/git-alises/refs/heads/main/inst
 
 ## Available Commands
 
-| Command | Description |
-|---------|-------------|
+| Command                                     | Description                                                    |
+| ------------------------------------------- | -------------------------------------------------------------- |
 | `git committo <branch-name> [-m <message>]` | Push staged changes to a new branch without switching branches |
 
 ## Features
@@ -31,7 +31,7 @@ curl -s https://raw.githubusercontent.com/sartaj/git-alises/refs/heads/main/inst
 
 ## Configuration
 
-The system's behavior can be configured by editing `~/.git-aliases/aliases.conf`. 
+The system's behavior can be configured by editing `~/.sartaj-git-alises/aliases.conf`.
 
 ### Default Base Branch
 
@@ -54,10 +54,12 @@ git committo <new-branch-name> [-m "commit message"]
 ```
 
 **Parameters:**
+
 - `<new-branch-name>`: Name of the new branch to create
 - `-m, --message`: Optional commit message (defaults to "update")
 
 **Example:**
+
 ```bash
 # Stage some changes
 git add file1.txt file2.txt
@@ -67,6 +69,7 @@ git committo feature/new-feature -m "Add new feature files"
 ```
 
 **What it does:**
+
 1. Creates a new branch from your default base branch
 2. Applies your staged changes to that branch
 3. Commits the changes with your message
@@ -88,7 +91,7 @@ See the existing scripts for examples of how to structure your commands.
 To update all aliases to the latest version:
 
 ```bash
-~/.git-aliases/update.sh
+~/.sartaj-git-alises/update.sh
 ```
 
 ## Contributing
