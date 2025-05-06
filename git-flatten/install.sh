@@ -22,15 +22,15 @@ mkdir -p "$INSTALL_DIR"
 
 # Download the script
 SCRIPT="${SCRIPT_URL##*/}"
-SCRIPT_PATH="$INSTALL_DIR/git-flatten"
-curl -o "$SCRIPT_PATH" "$SCRIPT_URL"
+SCRIPT_PATH="$INSTALL_DIR/$SCRIPT"
+curl -s "$SCRIPT_URL" > "$SCRIPT_PATH"
 chmod +x "$SCRIPT_PATH"
 
-# Add to PATH if needed
-if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
-    echo "export PATH=\"$INSTALL_DIR:\$PATH\"" >> "$HOME/.bashrc"
-    echo "export PATH=\"$INSTALL_DIR:\$PATH\"" >> "$HOME/.zshrc"
-fi
+# Unset the script name to avoid conflicts
+git config --global --unset-all alias.$ALIAS
 
-echo "✨ Installed git-$ALIAS to $INSTALL_DIR"
-echo "Restart your terminal or run: source ~/.bashrc"
+# Set up the Git alias
+git config --global "alias.$ALIAS" "!$SCRIPT_PATH"
+git config --global "alias.$ALIAS.description" "$DESCRIPTION"
+
+echo "✅ Installed git-$ALIAS successfully"
