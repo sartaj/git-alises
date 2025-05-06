@@ -19,10 +19,18 @@
 #   for cleaning up your commit history before merging a feature branch.
 #   The command will preserve all your changes but combine them into one commit.
 
-# Function to detect the default base branch name
-get_default_base_branch() {
-    # Get the origin name - try to find "origin" or use the first remote if not found
+
+# Function to get origin
+get_origin_name() {
     local ORIGIN_NAME=$(git remote | grep -m 1 origin || git remote | head -n 1)
+    # Determine the base branch to use
+    echo "${ORIGIN_NAME:-origin}"
+}
+
+# Function to detect the default base branch name
+get_main_branch_name() {
+    # Get the origin name - try to find "origin" or use the first remote if not found
+    local ORIGIN_NAME=$(get_origin_name)
     # Get the full head reference
     local HEAD_REF=$(set -- `git ls-remote --symref $ORIGIN_NAME HEAD` && test $1 = ref: && echo $2)
     # Derive the branch name by removing the "refs/heads/" prefix
@@ -39,9 +47,6 @@ git_flatten() {
     ##
     
     # Defaults
-    local CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    local BASE_BRANCH=$(get_default_base_branch)
-    local COMMIT=$(git merge-base HEAD $BASE_BRANCH)
     local COMMIT_MESSAGE=""
 
     # Parse arguments for -m flag
@@ -67,15 +72,18 @@ git_flatten() {
         return 1
     fi
 
+
     ##
     ## Main Logic
     ##
 
-    echo ""
-    echo "⚙️ Config"
-    echo "• Base branch: $BASE_BRANCH"
-    echo "• Commit hash: $(git rev-parse --short $COMMIT)"
-    echo ""
+    local ORIGIN_NAME=$(get_origin_name)
+    # Make sure we have the latest changes from the remote
+    git fetch $(get_origin_name) --prune
+
+    local CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    local BASE_BRANCH=$(get_main_branch_name)
+    local COMMIT=$(git merge-base $ORIGIN_NAME $BASE_BRANCH)
 
     echo "🔨 Squashing commits from this branch off of $BASE_BRANCH..."
     echo ""
