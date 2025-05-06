@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ALIASES=("commit-to" "squish")
+ALIASES=("git-commit-to" "git-squish")
 
 # Master installer script that runs git aliases installers directly from GitHub
 
