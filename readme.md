@@ -4,12 +4,9 @@
 
 A collection of useful git aliases to help improve your git workflow.
 
-## Quick Install
-
-Just want to install a specific command? Copy and paste the relevant command below:
+## Quick Install Everything
 
 ```bash
-# Install individual commands
 for a in git-push-staged-to git-flatten; do curl -s "https://raw.githubusercontent.com/sartaj/git-aliases/main/$a/install.sh" | bash; done
 ```
 
