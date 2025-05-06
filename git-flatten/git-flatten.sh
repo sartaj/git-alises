@@ -73,8 +73,8 @@ git_flatten() {
 
     echo ""
     echo "⚙️ Config"
-    echo " Base branch: $BASE_BRANCH"
-    echo " Commit hash: $(git rev-parse --short $COMMIT)"
+    echo "• Base branch: $BASE_BRANCH"
+    echo "• Commit hash: $(git rev-parse --short $COMMIT)"
     echo ""
 
     echo "🔨 Squashing commits from this branch off of $BASE_BRANCH..."
