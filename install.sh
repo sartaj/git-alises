@@ -59,16 +59,16 @@ while IFS=',' read -r alias_name script_file description || [[ -n "$alias_name" 
     echo "🔧 Installing alias: $alias_name ($description)"
     
     # Ensure the script file exists and is executable
-    if [ ! -f "$INSTALL_DIR/aliases/$script_file" ]; then
+    if [ ! -f "$INSTALL_DIR/$script_file" ]; then
         echo "  ❌ Script file not found: $script_file"
         continue
     fi
     
-    chmod +x "$INSTALL_DIR/aliases/$script_file"
+    chmod +x "$INSTALL_DIR/$script_file"
     
     # Set up the Git alias to directly use the script
     echo "  🔧 Setting up Git alias..."
-    git config --global "alias.$alias_name" "!$INSTALL_DIR/aliases/$script_file"
+    git config --global "alias.$alias_name" "!$INSTALL_DIR/$script_file"
     
     echo "  ✅ Installation of $alias_name complete!"
 done < "$CONFIG_FILE"
