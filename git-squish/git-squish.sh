@@ -85,7 +85,7 @@ git_squish() {
     echo ""
 
     git reset --soft $COMMIT
-    git commit -m "$COMMIT_MESSAGE"
+    git commit -v -m "$COMMIT_MESSAGE"
 
     echo "✨ Commits have been squished locally!"
     echo "⚠️  To update the remote branch, use:"

@@ -59,7 +59,7 @@ git_commit_staged_to() {
                     shift
                 else
                     echo "Error: Unknown argument '$1'"
-                    echo "Usage: git committo <branch-name> [-m <commit-message>]"
+                    echo "Usage: git commit-to <branch-name> [-m <commit-message>]"
                     return 1
                 fi
                 ;;
@@ -73,7 +73,7 @@ git_commit_staged_to() {
     # Check if branch name is provided
     if [[ -z "$NEW_BRANCH_NAME" ]]; then
         echo "Error: Missing branch name"
-        echo "Usage: git committo <branch-name> [-m <commit-message>]"
+        echo "Usage: git commit-to <branch-name> [-m <commit-message>]"
         return 1
     fi
 
