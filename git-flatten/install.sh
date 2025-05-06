@@ -5,8 +5,8 @@
 ##
 SCRIPT_URL="https://raw.githubusercontent.com/sartaj/git-aliases/refs/heads/main/git-flatten/git-flatten.sh"
 ALIAS="flatten"
-DESCRIPTION="Flatten all commits into one"
-INSTALL_DIR="$HOME/bin"
+DESCRIPTION="Flatten all commits into one based on the main remote branch"
+INSTALL_DIR="$HOME/.git-aliases"
 
 ##
 ## Run
