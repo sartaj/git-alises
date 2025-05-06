@@ -79,6 +79,11 @@ git_squish() {
     ## Main Logic
     ##
 
+    echo "🔍 Base branch: $BASE_BRANCH"
+    echo "📍 Squishing to commit: $(git rev-parse --short $COMMIT)"
+    echo "💬 Using commit message: $COMMIT_MESSAGE"
+    echo ""
+
     git reset --soft $COMMIT
     git commit -m "$COMMIT_MESSAGE"
 
