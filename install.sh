@@ -6,7 +6,7 @@
 set -e
 
 # Configuration
-REPO_URL="https://raw.githubusercontent.com/username/git-aliases/main"
+REPO_URL="https://raw.githubusercontent.com/sartaj/git-alises/refs/heads/main"
 INSTALL_DIR="$HOME/.git-aliases"
 BIN_DIR="$HOME/.local/bin"
 CONFIG_FILE="$INSTALL_DIR/aliases.conf"
