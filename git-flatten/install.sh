@@ -20,11 +20,8 @@ set -e
 # Create install directory if it doesn't exist
 mkdir -p "$INSTALL_DIR"
 
-echo "📥 Added $INSTALL_DIR"
-
 # Download the script
-SCRIPT="${SCRIPT_URL##*/}"
-SCRIPT_PATH="$INSTALL_DIR/$SCRIPT"
+SCRIPT_PATH="$INSTALL_DIR/$ALIAS.sh"
 curl -s "$SCRIPT_URL" > "$SCRIPT_PATH"
 chmod +x "$SCRIPT_PATH"
 echo "Script downloaded to $SCRIPT_PATH"

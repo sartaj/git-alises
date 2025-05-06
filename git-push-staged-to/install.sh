@@ -21,8 +21,7 @@ set -e
 mkdir -p "$INSTALL_DIR"
 
 # Download the script
-SCRIPT="${SCRIPT_URL##*/}"
-SCRIPT_PATH="$INSTALL_DIR/$SCRIPT"
+SCRIPT_PATH="$INSTALL_DIR/$ALIAS.sh"
 curl -s "$SCRIPT_URL" > "$SCRIPT_PATH"
 chmod +x "$SCRIPT_PATH"
 echo "Script downloaded to $SCRIPT_PATH"
